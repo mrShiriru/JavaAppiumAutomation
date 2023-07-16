@@ -12,10 +12,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.List;
 
 public class FirstTest {
 
-    private AppiumDriver driver;
+    private AppiumDriver<WebElement> driver;
     public static final long DEFAULT_WAIT_TIME = 15;
     public static final String ERROR_MESSAGE = "Element not found";
 
@@ -32,7 +33,7 @@ public class FirstTest {
         capabilities.setCapability("appActivity",".main.MainActivity");
         capabilities.setCapability("app","C:\\Users\\KGrigorchuk\\Desktop\\mobile app automator\\JavaAppiumAutomation\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
 
-        driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+        driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
     }
 
@@ -134,4 +135,72 @@ public class FirstTest {
         By searchLocator = By.xpath("//*[@resource-id='org.wikipedia:id/search_container']//android.widget.TextView");
         assertElementHasText(searchLocator, "Search Wikipedia", "Expected text not found");
     }
+
+
+    /**
+     * Написать тест, который:
+     *
+     * Ищет какое-то слово
+     * Убеждается, что найдено несколько статей
+     * Отменяет поиск
+     * Убеждается, что результат поиска пропал
+     *
+     * Результат выполнения закоммитить в репозиторий на гитхаб и прислать ссылку на коммит. Если вам потребовалось
+     * несколько коммитов для выполнения одного задания - присылайте ссылки на все эти коммиты с комментариями.
+     */
+
+    private By articlesLocator = By.xpath(
+            "//*[@resource-id='org.wikipedia:id/search_results_list']//android.widget.LinearLayout");
+
+    @Test
+    public void ex3_CancelSearch(){
+        waitAndClick(
+                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
+                ERROR_MESSAGE,
+                DEFAULT_WAIT_TIME
+        );
+
+        waitAndSendKeys(
+                By.xpath("//*[contains(@text,'Search…')]"),
+                "Java",
+                ERROR_MESSAGE,
+                DEFAULT_WAIT_TIME
+        );
+
+        List<WebElement> articles = waitElementsPresent(articlesLocator,
+                "No articles found in search list",
+                DEFAULT_WAIT_TIME
+        );
+        //Или можно вместо предыдущего шага использовать getElements + assert ниже
+        Assert.assertNotNull("No articles found in search list ",articles);
+
+        waitAndClick(
+                By.id("org.wikipedia:id/search_close_btn"),
+                "Cannot find X to cancel search",
+                DEFAULT_WAIT_TIME
+        );
+
+        waitElementsNotPresent(getElements(articlesLocator),
+                "Articles are still present in search list",
+                3
+        );
+    }
+
+    private List<WebElement> getElements(By locator) {
+        return driver.findElements(articlesLocator);
+    }
+
+
+    private List<WebElement> waitElementsPresent(By locator, String errorMsg, long timeoutInSeconds){
+        return new WebDriverWait(driver, timeoutInSeconds)
+                .withMessage(errorMsg + "\n")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+    }
+
+    private boolean waitElementsNotPresent(List<WebElement> elements, String errorMsg, long timeoutInSeconds){
+        return new WebDriverWait(driver, timeoutInSeconds)
+                .withMessage(errorMsg + "\n")
+                .until(ExpectedConditions.invisibilityOfAllElements(elements));
+    }
+
 }
