@@ -152,6 +152,8 @@ public class FirstTest {
     private By articlesLocator = By.xpath(
             "//*[@resource-id='org.wikipedia:id/search_results_list']//android.widget.LinearLayout");
 
+    private By itemTitleLocator = By.xpath(".//*[@resource-id='org.wikipedia:id/page_list_item_title']");
+
     @Test
     public void ex3_CancelSearch(){
         waitAndClick(
@@ -201,6 +203,44 @@ public class FirstTest {
         return new WebDriverWait(driver, timeoutInSeconds)
                 .withMessage(errorMsg + "\n")
                 .until(ExpectedConditions.invisibilityOfAllElements(elements));
+    }
+
+    /**
+     * Ex4*: Тест: проверка слов в поиске
+     * Написать тест, который делает поиск по какому-то слову. Например, JAVA. Затем убеждается, что в каждом результате
+     * поиска есть это слово.
+     *
+     * Внимание, прокручивать результаты выдачи поиска не надо. Это мы научимся делать на следующих занятиях.
+     * Пока надо работать только с теми результатами поиска, который видны сразу, без прокрутки.
+     */
+    @Test
+    public void ex4_checkWordInSearchResult(){
+        waitAndClick(
+                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
+                ERROR_MESSAGE,
+                DEFAULT_WAIT_TIME
+        );
+        waitAndSendKeys(
+                By.xpath("//*[contains(@text,'Search…')]"),
+                "Java",
+                ERROR_MESSAGE,
+                DEFAULT_WAIT_TIME
+        );
+        waitElementsPresent(articlesLocator,
+                "No articles found in search list",
+                DEFAULT_WAIT_TIME
+        );
+        checkTextInEachSearchResult("Java");
+    }
+
+    private void checkTextInEachSearchResult(String text){
+        List<WebElement> articles = getElements(articlesLocator);
+
+        for (WebElement article : articles){
+            String actualTitle = article.findElement(itemTitleLocator).getText();
+
+            Assert.assertTrue("Text is not contains in search title",actualTitle.contains(text));
+        }
     }
 
 }
