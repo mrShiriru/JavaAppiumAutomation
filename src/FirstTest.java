@@ -1,49 +1,15 @@
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.net.URL;
 import java.util.List;
 
-public class FirstTest {
-
-    private AppiumDriver<WebElement> driver;
-    public static final long DEFAULT_WAIT_TIME = 15;
-    public static final String ERROR_MESSAGE = "Element not found";
-
-    @Before
-    public void setUp() throws Exception
-    {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        capabilities.setCapability("platformName","Android");
-        capabilities.setCapability("deviceName","AndroidTestDevice");
-        capabilities.setCapability("platformVersion","8.1.0");
-        capabilities.setCapability("automationName","Appium");
-        capabilities.setCapability("appPackage","org.wikipedia");
-        capabilities.setCapability("appActivity",".main.MainActivity");
-        capabilities.setCapability("app","C:\\Users\\KGrigorchuk\\Desktop\\mobile app automator\\JavaAppiumAutomation\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
-
-        driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-
-    }
-
-    @After
-    public void tearDown(){
-        driver.quit();
-    }
+public class FirstTest extends AbstractWebTest{
 
     @Test
-    public void firstTest(){
+    public void testCheckSearchInput(){
         waitAndClick(
                 By.xpath("//*[contains(@text,'Search Wikipedia')]"),
                 ERROR_MESSAGE,
@@ -86,29 +52,7 @@ public class FirstTest {
         );
     }
 
-    private WebElement waitElementPresent(By locator, String errorMsg, long timeoutInSeconds){
-        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
-        wait.withMessage(errorMsg + "\n");
-        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-    }
 
-    private boolean waitElementNotPresent(By locator, String errorMsg, long timeoutInSeconds){
-        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
-        wait.withMessage(errorMsg + "\n");
-        return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-    }
-
-    private WebElement waitAndClick(By locator, String errorMsg, long timeoutInSeconds){
-        WebElement element = waitElementPresent(locator, errorMsg, timeoutInSeconds);
-        element.click();
-        return element;
-    }
-
-    private WebElement waitAndSendKeys(By by, String value, String errorMsg, long timeoutInSeconds){
-        WebElement element = waitElementPresent(by, errorMsg, timeoutInSeconds);
-        element.sendKeys(value);
-        return element;
-    }
 
     /**
      * Необходимо написать функцию, которая проверяет наличие ожидаемого текста у элемента. Предлагается назвать ее
@@ -149,13 +93,15 @@ public class FirstTest {
      * несколько коммитов для выполнения одного задания - присылайте ссылки на все эти коммиты с комментариями.
      */
 
-    private By articlesLocator = By.xpath(
+    private final By articlesLocator = By.xpath(
             "//*[@resource-id='org.wikipedia:id/search_results_list']//android.widget.LinearLayout");
 
-    private By itemTitleLocator = By.xpath(".//*[@resource-id='org.wikipedia:id/page_list_item_title']");
+    private final By itemTitleLocator = By.xpath(".//*[@resource-id='org.wikipedia:id/page_list_item_title']");
 
     @Test
     public void ex3_CancelSearch(){
+
+
         waitAndClick(
                 By.xpath("//*[contains(@text,'Search Wikipedia')]"),
                 ERROR_MESSAGE,
@@ -188,22 +134,6 @@ public class FirstTest {
         );
     }
 
-    private List<WebElement> getElements(By locator) {
-        return driver.findElements(articlesLocator);
-    }
-
-
-    private List<WebElement> waitElementsPresent(By locator, String errorMsg, long timeoutInSeconds){
-        return new WebDriverWait(driver, timeoutInSeconds)
-                .withMessage(errorMsg + "\n")
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
-    }
-
-    private boolean waitElementsNotPresent(List<WebElement> elements, String errorMsg, long timeoutInSeconds){
-        return new WebDriverWait(driver, timeoutInSeconds)
-                .withMessage(errorMsg + "\n")
-                .until(ExpectedConditions.invisibilityOfAllElements(elements));
-    }
 
     /**
      * Ex4*: Тест: проверка слов в поиске
