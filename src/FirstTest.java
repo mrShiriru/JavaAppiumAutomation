@@ -17,15 +17,15 @@ public class FirstTest extends AbstractWebTest{
         );
 
         waitAndSendKeys(
-                By.xpath("//*[contains(@text,'Search…')]"),
+                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
                 "Java",
                 ERROR_MESSAGE,
                 DEFAULT_WAIT_TIME
         );
 
         waitElementPresent(
-                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']" +
-                                "//*[contains(@text,'Object-oriented programming language')]"
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_description' and " +
+                        "contains(@text,'Object-oriented programming language')]"
                 ),
                 "Current article not found",
                 DEFAULT_WAIT_TIME);
@@ -51,7 +51,6 @@ public class FirstTest extends AbstractWebTest{
                 5
         );
     }
-
 
 
     /**
@@ -133,7 +132,6 @@ public class FirstTest extends AbstractWebTest{
                 3
         );
     }
-
 
     /**
      * Ex4*: Тест: проверка слов в поиске

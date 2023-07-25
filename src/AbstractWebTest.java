@@ -18,6 +18,7 @@ public abstract class AbstractWebTest {
     private AppiumDriver<WebElement> driver;
 
     public static final long DEFAULT_WAIT_TIME = 15;
+    public static final long SHORT_WAIT_TIME = 5;
     public static final String ERROR_MESSAGE = "Element not found";
 
     @Before
@@ -26,7 +27,7 @@ public abstract class AbstractWebTest {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         capabilities.setCapability("platformName","Android");
-        capabilities.setCapability("deviceName","AndroidTestDevice");
+        capabilities.setCapability("deviceName","and80");
         capabilities.setCapability("platformVersion","8.1.0");
         capabilities.setCapability("automationName","Appium");
         capabilities.setCapability("appPackage","org.wikipedia");
@@ -34,6 +35,12 @@ public abstract class AbstractWebTest {
         capabilities.setCapability("app","C:\\Users\\KGrigorchuk\\Desktop\\mobile app automator\\JavaAppiumAutomation\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
 
         driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+
+        waitAndClick(
+                By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
+                "Cannot click Skip button",
+                5
+        );
 
     }
 
@@ -90,7 +97,27 @@ public abstract class AbstractWebTest {
         int yStart = (int) (size.getWidth() * 0.8);
         int yEnd = (int) (size.getWidth() * 0.2);
 
-        action.press(x,yStart).waitAction(1000).moveTo(x, yEnd).release().perform();
+        action
+                .press(x,yStart)
+                .waitAction(1000)
+                .moveTo(x, yEnd)
+                .release()
+                .perform();
+    }
+
+    protected void swipeElementToLeft(WebElement element){
+        int left_x = element.getLocation().getX();
+        int right_x = left_x + element.getSize().getWidth();
+        int upper_y = element.getLocation().getY();
+        int lower_y = upper_y + element.getSize().getHeight();
+        int middle_y = (upper_y + lower_y) / 2;
+
+        new TouchAction(driver)
+                .press(right_x-10, middle_y)
+                .waitAction(200)
+                .moveTo(left_x+10, middle_y)
+                .release()
+                .perform();
     }
 
 }
