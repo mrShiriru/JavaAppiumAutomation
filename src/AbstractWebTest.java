@@ -15,7 +15,7 @@ import java.util.List;
 
 public abstract class AbstractWebTest {
 
-    private AppiumDriver<WebElement> driver;
+    protected AppiumDriver<WebElement> driver;
 
     public static final long DEFAULT_WAIT_TIME = 15;
     public static final long SHORT_WAIT_TIME = 5;
