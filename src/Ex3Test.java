@@ -1,11 +1,23 @@
+import lib.CoreTestCase;
+import lib.ui.MainPage;
+import lib.ui.SearchPage;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class Ex3Test extends AbstractWebTest {
+public class Ex3Test extends CoreTestCase {
+
+    MainPage mainPage;
+
+    @Before
+    public void loading(){
+        mainPage = new MainPage(driver);
+        mainPage.skipOnboarding();
+    }
 
     /**
      * Написать тест, который:
@@ -19,34 +31,26 @@ public class Ex3Test extends AbstractWebTest {
      * несколько коммитов для выполнения одного задания - присылайте ссылки на все эти коммиты с комментариями.
      */
     @Test
-    public void ex3_CancelSearch(){
-        waitAndClick(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                ERROR_MESSAGE,
-                DEFAULT_WAIT_TIME
-        );
+    public void testEx3_CancelSearch(){
+        SearchPage searchPage = new SearchPage(driver);
 
-        waitAndSendKeys(
-                By.xpath("//*[contains(@text,'Search…')]"),
-                "Java",
-                ERROR_MESSAGE,
-                DEFAULT_WAIT_TIME
-        );
+        searchPage.clickSearchInput();
+        searchPage.typeIntoSearchInput("Java");
 
-        List<WebElement> articles = waitElementsPresent(articlesLocator,
+        List<WebElement> articles =  mainPage.waitElementsPresent(articlesLocator,
                 "No articles found in search list",
                 DEFAULT_WAIT_TIME
         );
         //Или можно вместо предыдущего шага использовать getElements + assert ниже
         Assert.assertNotNull("No articles found in search list ",articles);
 
-        waitAndClick(
+        mainPage.waitAndClick(
                 By.id("org.wikipedia:id/search_close_btn"),
                 "Cannot find X to cancel search",
                 DEFAULT_WAIT_TIME
         );
 
-        waitElementsNotPresent(getElements(articlesLocator),
+        mainPage.waitElementsNotPresent( mainPage.getElements(articlesLocator),
                 "Articles are still present in search list",
                 3
         );

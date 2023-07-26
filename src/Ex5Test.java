@@ -1,13 +1,24 @@
+import lib.CoreTestCase;
+import lib.ui.MainPage;
+import lib.ui.SearchPage;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class Ex5Test extends AbstractWebTest {
+public class Ex5Test extends CoreTestCase {
 
-    private final By searchInputLocator =  By.xpath("//*[contains(@text,'Search Wikipedia')]");
+    MainPage mainPage;
+
+    @Before
+    public void loading(){
+        mainPage = new MainPage(driver);
+        mainPage.skipOnboarding();
+    }
+
 
     private final By searchResultListLocator = By.xpath(
             "//androidx.recyclerview.widget.RecyclerView[@resource-id ='org.wikipedia:id/search_results_list']" +
@@ -42,51 +53,42 @@ public class Ex5Test extends AbstractWebTest {
      * 4. Переходит в неё и убеждается, что title совпадает
      */
     @Test
-    public void ex5_testCreateTwoArticle() {
+    public void testEx5_testCreateTwoArticle() {
 
         String searchValue = "Appium";
+        SearchPage searchPage = new SearchPage(driver);
 
-        waitAndClick(
-                searchInputLocator,
-                "Unable to click on the search input",
-                SHORT_WAIT_TIME
-        );
-
-        waitAndSendKeys(
-                searchInputLocator,
-                searchValue,
-                String.format("Unable to enter text '%s' on search input", searchValue),
-                SHORT_WAIT_TIME
-        );
+        searchPage.clickSearchInput();
+        searchPage.typeIntoSearchInput(searchValue);
 
         saveCurrentArticle(FIRST_ARTICLE);
         saveCurrentArticle(SECOND_ARTICLE);
 
-        waitAndClick(navigateUpLocator,"Unable to click on the 'Navigate Up' button", SHORT_WAIT_TIME);
+        mainPage.waitAndClick(navigateUpLocator,"Unable to click on the 'Navigate Up' button", SHORT_WAIT_TIME);
 
-        waitAndClick(saveButtonNavigationTabLocator,
+        mainPage.waitAndClick(saveButtonNavigationTabLocator,
                 "Unable to click on the 'Save' button in the navigation tab",
                 SHORT_WAIT_TIME);
 
-        waitAndClick(savedGroupLocator,
+        mainPage.waitAndClick(savedGroupLocator,
                 ERROR_MESSAGE,
                 SHORT_WAIT_TIME);
 
-        List<WebElement> items = waitElementsPresent(
+        List<WebElement> items =  mainPage.waitElementsPresent(
                 pageListItemTitleLocator,
                 ERROR_MESSAGE,
                 DEFAULT_WAIT_TIME
         );
 
-        swipeElementToLeft(items.get(FIRST_ARTICLE));
+        mainPage.swipeElementToLeft(items.get(FIRST_ARTICLE));
 
-        waitElementsPresent(
+        mainPage.waitElementsPresent(
                 By.id("org.wikipedia:id/snackbar_text"),
                 "Popup with info not found",
                 SHORT_WAIT_TIME
         );
 
-        List<WebElement> items2 = waitElementsPresent(
+        List<WebElement> items2 =  mainPage.waitElementsPresent(
                 pageListItemTitleLocator,
                 ERROR_MESSAGE,
                 DEFAULT_WAIT_TIME
@@ -98,7 +100,7 @@ public class Ex5Test extends AbstractWebTest {
         lastArticle.click();
 
 
-        WebElement actualArticle = waitElementPresent(
+        WebElement actualArticle =  mainPage.waitElementPresent(
                 By.xpath("//android.view.View[@resource-id='pcs-edit-section-title-description']" +
                         "/preceding-sibling::android.view.View"),
                 "Article not found",
@@ -110,7 +112,7 @@ public class Ex5Test extends AbstractWebTest {
     }
 
     private void saveCurrentArticle(int ArticleNumber){
-        List<WebElement> articles = waitElementsPresent(searchResultListLocator,
+        List<WebElement> articles =  mainPage.waitElementsPresent(searchResultListLocator,
                 "No articles found in the search list",
                 DEFAULT_WAIT_TIME
         );
@@ -123,24 +125,24 @@ public class Ex5Test extends AbstractWebTest {
 
         article.click();
 
-        waitElementPresent(
+        mainPage.waitElementPresent(
                 By.xpath("//android.webkit.WebView[contains(@content-desc,'"+text+"')]"),
                 ERROR_MESSAGE,
                 DEFAULT_WAIT_TIME);
 
-        waitAndClick(
+        mainPage.waitAndClick(
                 saveButtonArticleNavTabLocator,
                 "Unable to click on the 'Save' button in the bottom menu",
                 SHORT_WAIT_TIME
         );
 
-        waitElementPresent(
+        mainPage.waitElementPresent(
         By.id("org.wikipedia:id/fragment_page_coordinator"),
                 "Popup with info not found",
                 DEFAULT_WAIT_TIME
         );
 
-        waitAndClick(
+        mainPage.waitAndClick(
                 navigateUpLocator,
                 "Unable to click on the 'Navigate Up' button",
                 SHORT_WAIT_TIME

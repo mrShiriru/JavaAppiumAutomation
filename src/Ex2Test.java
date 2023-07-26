@@ -1,11 +1,20 @@
+import lib.CoreTestCase;
+import lib.ui.MainPage;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.util.List;
+public class Ex2Test extends CoreTestCase {
 
-public class Ex2Test extends AbstractWebTest {
+    MainPage mainPage;
+
+    @Before
+    public void loading(){
+        mainPage = new MainPage(driver);
+        mainPage.skipOnboarding();
+    }
 
     /**
      * Необходимо написать функцию, которая проверяет наличие ожидаемого текста у элемента. Предлагается назвать ее
@@ -21,7 +30,7 @@ public class Ex2Test extends AbstractWebTest {
      * коммиты с комментариями.
      */
     @Test
-    public void ex2_CreateMethod (){
+    public void testEx2_CreateMethod (){
         By searchLocator = By.xpath("//*[@resource-id='org.wikipedia:id/search_container']//android.widget.TextView");
         assertElementHasText(
                 searchLocator,
@@ -30,7 +39,7 @@ public class Ex2Test extends AbstractWebTest {
     }
 
     private void assertElementHasText(By locator, String expectedText, String errorMessage){
-        WebElement element = waitElementPresent(locator,ERROR_MESSAGE,DEFAULT_WAIT_TIME);
+        WebElement element = mainPage.waitElementPresent(locator,ERROR_MESSAGE,DEFAULT_WAIT_TIME);
         String actualText = element.getAttribute("text");
 
         Assert.assertEquals(errorMessage, expectedText, actualText);

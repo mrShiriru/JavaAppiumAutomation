@@ -1,10 +1,22 @@
+import lib.CoreTestCase;
+import lib.ui.MainPage;
+import lib.ui.SearchPage;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class Ex6Test extends AbstractWebTest {
+public class Ex6Test extends CoreTestCase {
+
+    MainPage mainPage;
+
+    @Before
+    public void loading(){
+        mainPage = new MainPage(driver);
+        mainPage.skipOnboarding();
+    }
 
     private final By searchInputLocator =  By.xpath("//*[contains(@text,'Search Wikipedia')]");
 
@@ -19,24 +31,13 @@ public class Ex6Test extends AbstractWebTest {
      * Если title не найден - тест падает с ошибкой. Метод можно назвать assertElementPresent.
      */
     @Test
-    public void ex6_Ex6_assertTitle() {
-
+    public void testEx6_assertTitle() {
+        SearchPage searchPage = new SearchPage(driver);
         String searchValue = "Linkin Park";
 
-        waitAndClick(
-                searchInputLocator,
-                "Unable to click on the search input",
-                SHORT_WAIT_TIME
-        );
-
-        waitAndSendKeys(
-                searchInputLocator,
-                searchValue,
-                String.format("Unable to enter text '%s' on search input", searchValue),
-                SHORT_WAIT_TIME
-        );
-
-        List<WebElement> articles = waitElementsPresent(searchResultListLocator,
+        searchPage.clickSearchInput();
+        searchPage.typeIntoSearchInput(searchValue);
+        List<WebElement> articles = mainPage.waitElementsPresent(searchResultListLocator,
                 "No articles found in the search list",
                 DEFAULT_WAIT_TIME
         );

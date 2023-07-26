@@ -1,10 +1,18 @@
+import lib.CoreTestCase;
+import lib.ui.MainPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.ScreenOrientation;
 
-public class Ex7Test extends AbstractWebTest {
+public class Ex7Test extends CoreTestCase {
+    MainPage mainPage;
 
+    @Before
+    public void loading(){
+        mainPage = new MainPage(driver);
+        mainPage.skipOnboarding();
+    }
 
     /**
      * Один из вариантов решения проблемы, чтобы экран всегда оказывался в правильном положении, это
@@ -33,7 +41,7 @@ public class Ex7Test extends AbstractWebTest {
     }
 
     @Test
-    public void ex7_OrientationScreen_1() {
+    public void testEx7_OrientationScreen() {
 
         checkOrientation(ScreenOrientation.PORTRAIT);
 
