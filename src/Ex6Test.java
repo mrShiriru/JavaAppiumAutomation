@@ -13,16 +13,11 @@ public class Ex6Test extends AbstractWebTest {
             "//android.view.ViewGroup"
     );
 
-
-    final int FIRST_ARTICLE = 0;
-    final int SECOND_ARTICLE = 1;
-
     /**
      * Написать тест, который открывает статью и убеждается, что у нее есть элемент title.
      * Важно: тест не должен дожидаться появления title, проверка должна производиться сразу.
      * Если title не найден - тест падает с ошибкой. Метод можно назвать assertElementPresent.
      */
-
     @Test
     public void ex6_Ex6_assertTitle() {
 
@@ -47,7 +42,7 @@ public class Ex6Test extends AbstractWebTest {
         );
 
         WebElement article = articles.get(0);
-        String text = article.findElement(By.xpath(
+        article.findElement(By.xpath(
                 ".//android.widget.TextView[@resource-id ='org.wikipedia:id/page_list_item_title']")
         ).getText();
 

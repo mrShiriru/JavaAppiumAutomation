@@ -21,6 +21,10 @@ public abstract class AbstractWebTest {
     public static final long SHORT_WAIT_TIME = 5;
     public static final String ERROR_MESSAGE = "Element not found";
 
+    protected final By articlesLocator = By.xpath(
+            "//*[@resource-id='org.wikipedia:id/search_results_list']//android.widget.LinearLayout");
+
+
     @Before
     public void setUp() throws Exception
     {

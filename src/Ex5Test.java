@@ -33,6 +33,14 @@ public class Ex5Test extends AbstractWebTest {
     final int FIRST_ARTICLE = 0;
     final int SECOND_ARTICLE = 1;
 
+    /**
+     * Написать тест, который:
+     *
+     * 1. Сохраняет две статьи в одну папку
+     * 2. Удаляет одну из статей
+     * 3. Убеждается, что вторая осталась
+     * 4. Переходит в неё и убеждается, что title совпадает
+     */
     @Test
     public void ex5_testCreateTwoArticle() {
 
@@ -96,16 +104,12 @@ public class Ex5Test extends AbstractWebTest {
                 "Article not found",
                 DEFAULT_WAIT_TIME);
 
-        String actualTitle = actualArticle.getAttribute("name");;
-
+        String actualTitle = actualArticle.getAttribute("name");
 
         Assert.assertEquals(ERROR_MESSAGE,expectedTitle,actualTitle);
-
     }
 
-
     private void saveCurrentArticle(int ArticleNumber){
-
         List<WebElement> articles = waitElementsPresent(searchResultListLocator,
                 "No articles found in the search list",
                 DEFAULT_WAIT_TIME
@@ -136,13 +140,10 @@ public class Ex5Test extends AbstractWebTest {
                 DEFAULT_WAIT_TIME
         );
 
-
         waitAndClick(
                 navigateUpLocator,
                 "Unable to click on the 'Navigate Up' button",
                 SHORT_WAIT_TIME
         );
-
     }
-
 }
