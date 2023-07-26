@@ -1,65 +1,54 @@
-import lib.CoreTestCase;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
 import lib.ui.AnyPage;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.ScreenOrientation;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class Ex7Test extends CoreTestCase {
+import java.net.URL;
+
+public class Ex7Test {
     AnyPage anyPage;
-
-    @Before
-    public void loading(){
-        anyPage = new AnyPage(driver);
-        anyPage.skipOnboarding();
-    }
+    protected AppiumDriver<WebElement> driver;
+    String url = "http://127.0.0.1:4723/wd/hub";
 
     /**
      * Один из вариантов решения проблемы, чтобы экран всегда оказывался в правильном положении, это
-     * Пример 1:
-     * Создать after метод в тех тестах, где происходит разворот экрана и вернуть его в изначальное состояние
-     *
-     * Пример 2:
-     * создать еще один Before метод и указать какую ориентацию экрана необходимо для этого теста
-     *
-     * Пример 3:
      * Добавить настройку при старте эмулятора, например вот так:
      *      DesiredCapabilities capabilities = new DesiredCapabilities();
      *      capabilities.setCapability("deviceOrientation", "portrait");
      */
-
     @Before
-    public void orientation2()
+    public void setUp() throws Exception
     {
-        checkOrientation(ScreenOrientation.LANDSCAPE);
-    }
+        DesiredCapabilities capabilities = new DesiredCapabilities();
 
-    @After
-    public void orientation1()
-    {
-        checkOrientation(ScreenOrientation.LANDSCAPE);
+        capabilities.setCapability("platformName","Android");
+        capabilities.setCapability("deviceName","and80");
+        capabilities.setCapability("platformVersion","8.1.0");
+        capabilities.setCapability("automationName","Appium");
+        capabilities.setCapability("appPackage","org.wikipedia");
+        capabilities.setCapability("appActivity",".main.MainActivity");
+        capabilities.setCapability("deviceOrientation", "portrait");
+        capabilities.setCapability("app","C:\\Users\\KGrigorchuk\\Desktop\\mobile app automator\\JavaAppiumAutomation\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
+
+        driver = new AndroidDriver<>(new URL(url), capabilities);
+        anyPage = new AnyPage(driver);
+        anyPage.skipOnboarding();
+
     }
 
     @Test
     public void testEx7_OrientationScreen() {
-
-        checkOrientation(ScreenOrientation.PORTRAIT);
-
+        boolean check_before = isCurrentOrientationPortrait();
         driver.rotate(ScreenOrientation.LANDSCAPE);
-
-        checkOrientation(ScreenOrientation.PORTRAIT);
-
         boolean check_after = isCurrentOrientationPortrait();
-        System.out.println("isCurrentOrientationPortrait =" + check_after);
-    }
 
-    private void checkOrientation(ScreenOrientation orientation){
-        String ort = driver.getOrientation().name();
-        ScreenOrientation actualOrientation = ScreenOrientation.valueOf(ort);
-
-        if (orientation != actualOrientation){
-            driver.rotate(orientation);
-        }
+        Assert.assertNotEquals("Screen orientation after rotation is the same", check_before, check_after);
     }
 
     private boolean isCurrentOrientationPortrait(){
@@ -76,5 +65,9 @@ public class Ex7Test extends CoreTestCase {
         }
     }
 
+    @After
+    public void tearDown(){
+        driver.quit();
+    }
 
 }
