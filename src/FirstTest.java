@@ -1,20 +1,20 @@
 
 import lib.CoreTestCase;
-import lib.ui.MainPage;
+import lib.ui.AnyPage;
 import lib.ui.SearchPage;
 import org.junit.Before;
 import org.junit.Test;
 
 public class FirstTest extends CoreTestCase {
 
-    MainPage mainPage;
+    AnyPage anyPAge;
     SearchPage searchPage;
 
     @Before
     public void loading(){
-        mainPage = new MainPage(driver);
+        anyPAge = new AnyPage(driver);
         searchPage = new SearchPage(driver);
-        mainPage.skipOnboarding();
+        anyPAge.skipOnboarding();
     }
 
     @Test
@@ -27,6 +27,7 @@ public class FirstTest extends CoreTestCase {
     @Test
     public void testCancelSearch(){
         searchPage.clickSearchInput();
+        searchPage.typeIntoSearchInput("Java");
         searchPage.waitAndClickSearchCloseButton();
         searchPage.waitForCancelButtonToDisappear();
     }

@@ -2,10 +2,8 @@ package lib;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -20,8 +18,7 @@ public class CoreTestCase {
             SHORT_WAIT_TIME = 5;
 
     public static final String ERROR_MESSAGE = "Element not found";
-    protected final By articlesLocator = By.xpath(
-            "//*[@resource-id='org.wikipedia:id/search_results_list']//android.widget.LinearLayout");
+
 
     @Before
     public void setUp() throws Exception

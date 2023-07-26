@@ -1,17 +1,17 @@
 import lib.CoreTestCase;
-import lib.ui.MainPage;
+import lib.ui.AnyPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.ScreenOrientation;
 
 public class Ex7Test extends CoreTestCase {
-    MainPage mainPage;
+    AnyPage anyPage;
 
     @Before
     public void loading(){
-        mainPage = new MainPage(driver);
-        mainPage.skipOnboarding();
+        anyPage = new AnyPage(driver);
+        anyPage.skipOnboarding();
     }
 
     /**
