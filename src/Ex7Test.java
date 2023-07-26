@@ -13,16 +13,21 @@ public class Ex7Test extends AbstractWebTest {
      *
      * Пример 2:
      * создать еще один Before метод и указать какую ориентацию экрана необходимо для этого теста
+     *
+     * Пример 3:
+     * Добавить настройку при старте эмулятора, например вот так:
+     *      DesiredCapabilities capabilities = new DesiredCapabilities();
+     *      capabilities.setCapability("deviceOrientation", "portrait");
      */
 
     @Before
-    public void orientation2() throws Exception
+    public void orientation2()
     {
         checkOrientation(ScreenOrientation.LANDSCAPE);
     }
 
     @After
-    public void orientation1() throws Exception
+    public void orientation1()
     {
         checkOrientation(ScreenOrientation.LANDSCAPE);
     }
@@ -37,6 +42,7 @@ public class Ex7Test extends AbstractWebTest {
         checkOrientation(ScreenOrientation.PORTRAIT);
 
         boolean check_after = isCurrentOrientationPortrait();
+        System.out.println("isCurrentOrientationPortrait =" + check_after);
     }
 
     private void checkOrientation(ScreenOrientation orientation){
