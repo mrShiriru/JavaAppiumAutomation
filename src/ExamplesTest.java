@@ -1,20 +1,25 @@
 
 import lib.CoreTestCase;
-import lib.ui.AnyPage;
+import lib.ui.ArticlePage;
+import lib.ui.MainPage;
 import lib.ui.SearchPage;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FirstTest extends CoreTestCase {
+import static lib.ui.AnyPage.FIRST_ARTICLE;
 
-    AnyPage anyPAge;
+public class ExamplesTest extends CoreTestCase {
+
+    MainPage mainPage;
     SearchPage searchPage;
+    ArticlePage articlePage;
 
     @Before
     public void loading(){
-        anyPAge = new AnyPage(driver);
         searchPage = new SearchPage(driver);
-        anyPAge.skipOnboarding();
+        articlePage = new ArticlePage(driver);
+        mainPage = new MainPage(driver);
+        mainPage.skipOnboarding();
     }
 
     @Test
@@ -32,4 +37,13 @@ public class FirstTest extends CoreTestCase {
         searchPage.waitForCancelButtonToDisappear();
     }
 
+    @Test
+    public void testSwipeUp(){
+        searchPage.clickSearchInput();
+        searchPage.typeIntoSearchInput("Java");
+        searchPage.saveTitleAndOpenArticle(FIRST_ARTICLE);
+        articlePage.swipeUp();
+        articlePage.swipeUp();
+        articlePage.swipeUp();
+    }
 }

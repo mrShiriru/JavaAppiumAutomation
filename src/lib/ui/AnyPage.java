@@ -10,9 +10,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class AnyPage {
+public abstract class AnyPage {
     protected AppiumDriver<WebElement> driver;
 
+    public static final int FIRST_ARTICLE = 0;
+    public static final int SECOND_ARTICLE = 1;
 
     public AnyPage(AppiumDriver<WebElement> driver){
         this.driver= driver;

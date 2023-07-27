@@ -1,5 +1,5 @@
 import lib.CoreTestCase;
-import lib.ui.AnyPage;
+import lib.ui.MainPage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,12 +8,12 @@ import org.openqa.selenium.WebElement;
 
 public class Ex2Test extends CoreTestCase {
 
-    AnyPage anyPAge;
+    MainPage mainPage;
 
     @Before
     public void loading(){
-        anyPAge = new AnyPage(driver);
-        anyPAge.skipOnboarding();
+        mainPage = new MainPage(driver);
+        mainPage.skipOnboarding();
     }
 
     /**
@@ -39,7 +39,7 @@ public class Ex2Test extends CoreTestCase {
     }
 
     private void assertElementHasText(By locator, String expectedText, String errorMessage){
-        WebElement element = anyPAge.waitElementPresent(locator,ERROR_MESSAGE,DEFAULT_WAIT_TIME);
+        WebElement element = mainPage.waitElementPresent(locator,ERROR_MESSAGE,DEFAULT_WAIT_TIME);
         String actualText = element.getAttribute("text");
 
         Assert.assertEquals(errorMessage, expectedText, actualText);

@@ -3,10 +3,12 @@ import lib.ui.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
+
+import static lib.ui.AnyPage.FIRST_ARTICLE;
+import static lib.ui.AnyPage.SECOND_ARTICLE;
 
 public class Ex5Test extends CoreTestCase {
 
@@ -20,15 +22,11 @@ public class Ex5Test extends CoreTestCase {
     public void loading(){
         searchPage = new SearchPage(driver);
         articlePage = new ArticlePage(driver);
-        mainPage = new MainPage(driver);
         savedPage = new SavedPage(driver);
         groupPage = new GroupPage(driver);
-        AnyPage anyPAge = new AnyPage(driver);
-        anyPAge.skipOnboarding();
+        mainPage = new MainPage(driver);
+        mainPage.skipOnboarding();
     }
-
-    final int FIRST_ARTICLE = 0;
-    final int SECOND_ARTICLE = 1;
 
     /**
      * Написать тест, который:
@@ -60,7 +58,6 @@ public class Ex5Test extends CoreTestCase {
         String actualTitle = articlePage.getTitle();
         Assert.assertEquals(ERROR_MESSAGE,expectedTitle,actualTitle);
     }
-
 
     private void saveCurrentArticle(int articleNumber){
         String title = searchPage.saveTitleAndOpenArticle(articleNumber);

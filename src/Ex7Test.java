@@ -1,6 +1,6 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import lib.ui.AnyPage;
+import lib.ui.MainPage;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,8 +12,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.URL;
 
 public class Ex7Test {
-    AnyPage anyPage;
+
     protected AppiumDriver<WebElement> driver;
+    MainPage mainPage;
     String url = "http://127.0.0.1:4723/wd/hub";
 
     /**
@@ -37,9 +38,8 @@ public class Ex7Test {
         capabilities.setCapability("app","C:\\Users\\KGrigorchuk\\Desktop\\mobile app automator\\JavaAppiumAutomation\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
 
         driver = new AndroidDriver<>(new URL(url), capabilities);
-        anyPage = new AnyPage(driver);
-        anyPage.skipOnboarding();
-
+        mainPage = new MainPage(driver);
+        mainPage.skipOnboarding();
     }
 
     @Test

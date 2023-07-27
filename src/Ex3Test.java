@@ -1,19 +1,19 @@
 import lib.CoreTestCase;
-import lib.ui.AnyPage;
+import lib.ui.MainPage;
 import lib.ui.SearchPage;
 import org.junit.Before;
 import org.junit.Test;
 
 public class Ex3Test extends CoreTestCase {
 
-    AnyPage anyPAge;
+    MainPage mainPage;
     SearchPage searchPage;
 
     @Before
     public void loading(){
-        anyPAge = new AnyPage(driver);
+        mainPage = new MainPage(driver);
+        mainPage.skipOnboarding();
         searchPage = new SearchPage(driver);
-        anyPAge.skipOnboarding();
     }
 
     /**

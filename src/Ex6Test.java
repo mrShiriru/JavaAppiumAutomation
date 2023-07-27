@@ -1,26 +1,22 @@
 import lib.CoreTestCase;
-import lib.ui.AnyPage;
 import lib.ui.ArticlePage;
+import lib.ui.MainPage;
 import lib.ui.SearchPage;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
 
 public class Ex6Test extends CoreTestCase {
 
-    private AnyPage anyPage;
+    MainPage mainPage;
     private SearchPage searchPage;
     private ArticlePage articlePage;
 
     @Before
     public void loading(){
-        anyPage = new AnyPage(driver);
         searchPage = new SearchPage(driver);
         articlePage = new ArticlePage(driver);
-        anyPage.skipOnboarding();
+        mainPage = new MainPage(driver);
+        mainPage.skipOnboarding();
     }
 
     /**

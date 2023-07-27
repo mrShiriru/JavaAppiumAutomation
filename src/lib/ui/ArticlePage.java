@@ -32,7 +32,6 @@ public class ArticlePage extends AnyPage {
         return topPanel;
     }
 
-
     /* TEMPLATES METHODS */
     private static By getArticleTitleLocator(String title){
         return By.xpath(TITLE_TPL.replace("{TITLE}", title));
@@ -65,27 +64,15 @@ public class ArticlePage extends AnyPage {
         return actualArticle.getAttribute("name");
     }
 
-
-//    assertElementPresent(
-//            By.xpath("//android.view.View[@resource-id='pcs-edit-section-title-description']" +
-//            "/preceding-sibling::android.view.View")
-//        );
-//}
-
     private int getAmountOfElements(By by){
         List<WebElement> elements = driver.findElements(by);
         return elements.size();
     }
 
     public void assertElementPresent(String title){
-
-//        By locator = By.xpath("//android.view.View[@resource-id='pcs-edit-section-title-description']" +
-//            "/preceding-sibling::android.view.View");
-
         By locator = getArticleTitleLocator(title);
 
         int amount = getAmountOfElements(getArticleTitleLocator(title));
-
         if (amount == 0){
             String default_message = "Element "+ locator + " supposed to be present";
             throw new AssertionError(default_message);

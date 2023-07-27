@@ -20,6 +20,4 @@ public class SavedPage extends AnyPage {
                 "Can't open Saved group",
                 SHORT_WAIT_TIME);
     }
-
-
 }

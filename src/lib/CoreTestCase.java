@@ -34,9 +34,6 @@ public class CoreTestCase {
         capabilities.setCapability("app","C:\\Users\\KGrigorchuk\\Desktop\\mobile app automator\\JavaAppiumAutomation\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
 
         driver = new AndroidDriver<>(new URL(url), capabilities);
-
-
-
     }
 
     @After
