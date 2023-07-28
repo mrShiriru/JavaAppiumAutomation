@@ -71,7 +71,10 @@ public class SearchPage  extends AnyPage implements Article {
      * @param description - описание страницы
      */
     public void waitForSearchResult(String title, String description){
-        waitElementPresent(getXpathResultSearchArticle(title, description),"Current article not found", DEFAULT_WAIT_TIME);
+        waitElementPresent(
+                getXpathResultSearchArticle(title, description),
+                String.format("Current article with title= '%s' and description = '%s' not found", title, description),
+                DEFAULT_WAIT_TIME);
     }
 
     public void waitAndClickSearchCloseButton(){
