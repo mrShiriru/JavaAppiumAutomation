@@ -6,16 +6,6 @@ import org.junit.Test;
 
 public class Ex3Test extends CoreTestCase {
 
-    MainPage mainPage;
-    SearchPage searchPage;
-
-    @Before
-    public void loading(){
-        mainPage = new MainPage(driver);
-        mainPage.skipOnboarding();
-        searchPage = new SearchPage(driver);
-    }
-
     /**
      * Написать тест, который:
      *

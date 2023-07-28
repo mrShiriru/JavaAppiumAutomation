@@ -12,22 +12,6 @@ import static lib.ui.AnyPage.SECOND_ARTICLE;
 
 public class Ex5Test extends CoreTestCase {
 
-    SearchPage searchPage;
-    ArticlePage articlePage;
-    MainPage mainPage;
-    SavedPage savedPage;
-    GroupPage groupPage;
-
-    @Before
-    public void loading(){
-        searchPage = new SearchPage(driver);
-        articlePage = new ArticlePage(driver);
-        savedPage = new SavedPage(driver);
-        groupPage = new GroupPage(driver);
-        mainPage = new MainPage(driver);
-        mainPage.skipOnboarding();
-    }
-
     /**
      * Написать тест, который:
      *

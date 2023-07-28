@@ -7,15 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class Ex2Test extends CoreTestCase {
-
-    MainPage mainPage;
-
-    @Before
-    public void loading(){
-        mainPage = new MainPage(driver);
-        mainPage.skipOnboarding();
-    }
-
     /**
      * Необходимо написать функцию, которая проверяет наличие ожидаемого текста у элемента. Предлагается назвать ее
      * assertElementHasText. На вход эта функция должна принимать локатор элемент, ожидаемый текст и текст ошибки,

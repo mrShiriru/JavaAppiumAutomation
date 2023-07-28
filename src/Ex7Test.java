@@ -1,21 +1,10 @@
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import lib.ui.MainPage;
-import org.junit.After;
+import lib.CoreTestCase;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.net.URL;
 
-public class Ex7Test {
-
-    protected AppiumDriver<WebElement> driver;
-    MainPage mainPage;
-    String url = "http://127.0.0.1:4723/wd/hub";
+public class Ex7Test extends CoreTestCase {
 
     /**
      * Один из вариантов решения проблемы, чтобы экран всегда оказывался в правильном положении, это
@@ -23,24 +12,6 @@ public class Ex7Test {
      *      DesiredCapabilities capabilities = new DesiredCapabilities();
      *      capabilities.setCapability("deviceOrientation", "portrait");
      */
-    @Before
-    public void setUp() throws Exception
-    {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        capabilities.setCapability("platformName","Android");
-        capabilities.setCapability("deviceName","and80");
-        capabilities.setCapability("platformVersion","8.1.0");
-        capabilities.setCapability("automationName","Appium");
-        capabilities.setCapability("appPackage","org.wikipedia");
-        capabilities.setCapability("appActivity",".main.MainActivity");
-        capabilities.setCapability("deviceOrientation", "portrait");
-        capabilities.setCapability("app","C:\\Users\\KGrigorchuk\\Desktop\\mobile app automator\\JavaAppiumAutomation\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
-
-        driver = new AndroidDriver<>(new URL(url), capabilities);
-        mainPage = new MainPage(driver);
-        mainPage.skipOnboarding();
-    }
 
     @Test
     public void testEx7_OrientationScreen() {
@@ -63,11 +34,6 @@ public class Ex7Test {
             System.out.println("Current screen orientation is Landscape");
             return false;
         }
-    }
-
-    @After
-    public void tearDown(){
-        driver.quit();
     }
 
 }

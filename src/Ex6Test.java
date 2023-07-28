@@ -7,18 +7,6 @@ import org.junit.Test;
 
 public class Ex6Test extends CoreTestCase {
 
-    MainPage mainPage;
-    private SearchPage searchPage;
-    private ArticlePage articlePage;
-
-    @Before
-    public void loading(){
-        searchPage = new SearchPage(driver);
-        articlePage = new ArticlePage(driver);
-        mainPage = new MainPage(driver);
-        mainPage.skipOnboarding();
-    }
-
     /**
      * Написать тест, который открывает статью и убеждается, что у нее есть элемент title.
      * Важно: тест не должен дожидаться появления title, проверка должна производиться сразу.

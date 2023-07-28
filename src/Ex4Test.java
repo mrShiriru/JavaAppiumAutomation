@@ -6,16 +6,6 @@ import org.junit.Test;
 
 public class Ex4Test extends CoreTestCase {
 
-    MainPage mainPage;
-    SearchPage searchPage;
-
-    @Before
-    public void loading(){
-        searchPage = new SearchPage(driver);
-        mainPage = new MainPage(driver);
-        mainPage.skipOnboarding();
-    }
-
     /**
      * Ex4*: Тест: проверка слов в поиске
      * Написать тест, который делает поиск по какому-то слову. Например, JAVA. Затем убеждается, что в каждом результате
