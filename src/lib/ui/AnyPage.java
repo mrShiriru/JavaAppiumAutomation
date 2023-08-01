@@ -62,34 +62,34 @@ public abstract class AnyPage {
         return driver.findElements(locator);
     }
 
-    public void swipeUp(){
-        TouchAction action = new TouchAction(driver);
-        Dimension size =driver.manage().window().getSize();
-        int x = size.getHeight()/2;
-        int yStart = (int) (size.getWidth() * 0.8);
-        int yEnd = (int) (size.getWidth() * 0.2);
-
-        action
-                .press(x,yStart)
-                .waitAction(1000)
-                .moveTo(x, yEnd)
-                .release()
-                .perform();
-    }
+    public void swipeUp(){}
+//        TouchAction action = new TouchAction(driver);
+//        Dimension size =driver.manage().window().getSize();
+//        int x = size.getHeight()/2;
+//        int yStart = (int) (size.getWidth() * 0.8);
+//        int yEnd = (int) (size.getWidth() * 0.2);
+//
+//        action
+//                .press(x,yStart)
+//                .waitAction(1000)
+//                .moveTo(x, yEnd)
+//                .release()
+//                .perform();
+//    }
 
     public void swipeElementToLeft(WebElement element){
-        int left_x = element.getLocation().getX();
-        int right_x = left_x + element.getSize().getWidth();
-        int upper_y = element.getLocation().getY();
-        int lower_y = upper_y + element.getSize().getHeight();
-        int middle_y = (upper_y + lower_y) / 2;
-
-        new TouchAction(driver)
-                .press(right_x-10, middle_y)
-                .waitAction(200)
-                .moveTo(left_x+10, middle_y)
-                .release()
-                .perform();
+//        int left_x = element.getLocation().getX();
+//        int right_x = left_x + element.getSize().getWidth();
+//        int upper_y = element.getLocation().getY();
+//        int lower_y = upper_y + element.getSize().getHeight();
+//        int middle_y = (upper_y + lower_y) / 2;
+//
+//        new TouchAction(driver)
+//                .press(right_x-10, middle_y)
+//                .waitAction(200)
+//                .moveTo(left_x+10, middle_y)
+//                .release()
+//                .perform();
     }
 
 }
