@@ -1,22 +1,21 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.TouchAction;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public abstract class AnyPage {
-    protected AppiumDriver<WebElement> driver;
+    protected AppiumDriver driver;
 
     public static final int FIRST_ARTICLE = 0;
     public static final int SECOND_ARTICLE = 1;
 
-    public AnyPage(AppiumDriver<WebElement> driver){
+    public AnyPage(AppiumDriver driver){
         this.driver= driver;
     }
 
@@ -25,25 +24,25 @@ public abstract class AnyPage {
     }
 
     public WebElement waitElementPresent(By locator, String errorMsg, long timeoutInSeconds){
-        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.withMessage(errorMsg + "\n");
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
     public List<WebElement> waitElementsPresent(By locator, String errorMsg, long timeoutInSeconds){
-        return new WebDriverWait(driver, timeoutInSeconds)
+        return new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
                 .withMessage(errorMsg + "\n")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
     }
 
     public void waitElementNotPresent(By locator, String errorMsg, long timeoutInSeconds){
-        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.withMessage(errorMsg + "\n");
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
     public void waitElementsNotPresent(List<WebElement> elements, String errorMsg, long timeoutInSeconds){
-        new WebDriverWait(driver, timeoutInSeconds)
+        new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
                 .withMessage(errorMsg + "\n")
                 .until(ExpectedConditions.invisibilityOfAllElements(elements));
     }

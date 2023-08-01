@@ -13,7 +13,7 @@ public class MainPage extends AnyPage {
 
     private static final By SKIP_BUTTON = By.id("org.wikipedia:id/fragment_onboarding_skip_button");
 
-    public MainPage(AppiumDriver<WebElement> driver) {
+    public MainPage(AppiumDriver driver) {
         super(driver);
         bottomPanel = new BottomPanel(driver);
     }

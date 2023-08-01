@@ -3,7 +3,7 @@ package lib.ui;
 import io.appium.java_client.AppiumDriver;
 import lib.ui.interfaces.Article;
 import lib.ui.panels.TopPanel;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -30,7 +30,7 @@ public class SearchPage  extends AnyPage implements Article {
                     "//*[@resource-id='org.wikipedia:id/page_list_item_title' and @text='{TITLE}']/following-sibling::" +
                     SEARCH_RESULT_BY_SUBSTRING_TPL;
 
-    public SearchPage(AppiumDriver<WebElement> driver) {
+    public SearchPage(AppiumDriver driver) {
         super(driver);
         topPanel = new TopPanel(driver);
     }
@@ -91,7 +91,7 @@ public class SearchPage  extends AnyPage implements Article {
                 ARTICLES_IN_SEARCH_LIST,
                 "Cannot find articles in the search list",
                 DEFAULT_WAIT_TIME);
-        Assert.assertNotNull("No articles found in search list ", articles);
+        Assertions.assertNotNull(articles, "No articles found in search list");
     }
 
     public void waitForArticlesToDisappear(){
@@ -107,7 +107,7 @@ public class SearchPage  extends AnyPage implements Article {
         for (WebElement article : articles){
             String actualTitle = getTitle(article);
 
-            Assert.assertTrue("Text is not contains in search title",actualTitle.contains(text));
+            Assertions.assertTrue(actualTitle.contains(text), "Text is not contains in search title");
         }
     }
 

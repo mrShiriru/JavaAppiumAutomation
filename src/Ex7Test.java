@@ -1,7 +1,6 @@
 import lib.CoreTestCase;
-import org.junit.Assert;
-import org.junit.Test;
-import org.openqa.selenium.ScreenOrientation;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 
 public class Ex7Test extends CoreTestCase {
@@ -16,24 +15,25 @@ public class Ex7Test extends CoreTestCase {
     @Test
     public void testEx7_OrientationScreen() {
         boolean check_before = isCurrentOrientationPortrait();
-        driver.rotate(ScreenOrientation.LANDSCAPE);
+        //driver.rotate(ScreenOrientation.LANDSCAPE);
         boolean check_after = isCurrentOrientationPortrait();
 
-        Assert.assertNotEquals("Screen orientation after rotation is the same", check_before, check_after);
+        Assertions.assertNotEquals(check_before, check_after, "Screen orientation after rotation is the same");
     }
 
     private boolean isCurrentOrientationPortrait(){
-        String ort = driver.getOrientation().name();
-        ScreenOrientation orientation = ScreenOrientation.valueOf(ort);
+        //String ort = driver.getOrientation().name();
+        //ScreenOrientation orientation = ScreenOrientation.valueOf(ort);
 
-        if (orientation == ScreenOrientation.PORTRAIT) {
-            System.out.println("Current screen orientation is portrait");
-            return true;
-
-        } else {
-            System.out.println("Current screen orientation is Landscape");
-            return false;
-        }
+//        if (orientation == ScreenOrientation.PORTRAIT) {
+//            System.out.println("Current screen orientation is portrait");
+//            return true;
+//
+//        } else {
+//            System.out.println("Current screen orientation is Landscape");
+//            return false;
+//        }
+        return true;
     }
 
 }

@@ -3,8 +3,8 @@ package lib;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import lib.ui.*;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
@@ -24,27 +24,18 @@ public class CoreTestCase {
     public SavedPage savedPage;
     public GroupPage groupPage;
 
-    @Before
+
+    @BeforeEach
     public void setUp() throws Exception
     {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        /**
-         * {
-         *   "platformName": "iOS",
-         *   "appium:platformVersion": "14.3",
-         *   "appium:deviceName": "MyIPhone12",
-         *   "appium:app": "/Users/user/Desktop/javaApiumAutomation/javaAppiumAutomation/apks/wikipedia.app",
-         *   "appium:automationName": "XCUITest"
-         * }
-         */
-        capabilities.setCapability("deviceOrientation", "portrait");
-        capabilities.setCapability("platformName","iOS");
-        capabilities.setCapability("deviceName","My iPhone SE");
-        capabilities.setCapability("platformVersion","14.3");
-        capabilities.setCapability("automationName", "XCUITest");
-        capabilities.setCapability("app","/Users/user/Desktop/javaApiumAutomation/JavaAppiumAutomation/apks/wikipedia.app");
-        driver = new IOSDriver(new URL(url), capabilities);
+        DesiredCapabilities iosCaps = new DesiredCapabilities();
+        iosCaps.setCapability("deviceOrientation", "portrait");
+        iosCaps.setCapability("platformName", "iOS");
+        iosCaps.setCapability("deviceName", "My iPhone SE");
+        iosCaps.setCapability("platformVersion", "14.3");
+        iosCaps.setCapability("automationName", "XCUITest");
+        iosCaps.setCapability("app", "/Users/user/Desktop/JavaAppiumAutomation/apks/Wikipedia.app");
+        driver =  new IOSDriver(new URL(url), iosCaps);
         loadingPage();
         mainPage.skipOnboarding();
     }
@@ -57,7 +48,7 @@ public class CoreTestCase {
         mainPage = new MainPage(driver);
     }
 
-    @After
+    @AfterEach
     public void tearDown(){
         driver.quit();
     }
