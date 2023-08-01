@@ -1,19 +1,18 @@
 package lib;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import lib.ui.*;
-import org.junit.After;
-import org.junit.Before;
-import org.openqa.selenium.WebElement;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
 
 public class CoreTestCase {
 
-    protected AppiumDriver<WebElement> driver;
-    String url = "http://127.0.0.1:4723/wd/hub";
+    protected AppiumDriver driver;
+    String url = "http://127.0.0.1:4723/";
     public static final long
             DEFAULT_WAIT_TIME = 15,
             SHORT_WAIT_TIME = 5;
@@ -25,23 +24,19 @@ public class CoreTestCase {
     public SavedPage savedPage;
     public GroupPage groupPage;
 
-    @Before
+
+    @BeforeEach
     public void setUp() throws Exception
     {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        capabilities.setCapability("platformName","Android");
-        capabilities.setCapability("deviceName","and80");
-        capabilities.setCapability("platformVersion","8.1.0");
-        capabilities.setCapability("automationName","Appium");
-        capabilities.setCapability("appPackage","org.wikipedia");
-        capabilities.setCapability("appActivity",".main.MainActivity");
-        capabilities.setCapability("deviceOrientation", "portrait");
-        capabilities.setCapability("app","C:\\Users\\KGrigorchuk\\Desktop\\mobile app automator\\JavaAppiumAutomation\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
-
-        driver = new AndroidDriver<>(new URL(url), capabilities);
+        DesiredCapabilities iosCaps = new DesiredCapabilities();
+        iosCaps.setCapability("deviceOrientation", "portrait");
+        iosCaps.setCapability("platformName", "iOS");
+        iosCaps.setCapability("deviceName", "My iPhone SE");
+        iosCaps.setCapability("platformVersion", "14.3");
+        iosCaps.setCapability("automationName", "XCUITest");
+        iosCaps.setCapability("app", "/Users/user/Desktop/pr/JavaAppiumAutomation/apks/Wikipedia.app");
+        driver =  new IOSDriver(new URL(url), iosCaps);
         loadingPage();
-        mainPage.skipOnboarding();
     }
 
     private void loadingPage(){
@@ -52,7 +47,7 @@ public class CoreTestCase {
         mainPage = new MainPage(driver);
     }
 
-    @After
+    @AfterEach
     public void tearDown(){
         driver.quit();
     }

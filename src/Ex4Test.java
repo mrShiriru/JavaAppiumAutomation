@@ -1,8 +1,5 @@
 import lib.CoreTestCase;
-import lib.ui.MainPage;
-import lib.ui.SearchPage;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class Ex4Test extends CoreTestCase {
 

@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import static lib.CoreTestCase.SHORT_WAIT_TIME;
 
 public class SavedPage extends AnyPage {
-    public SavedPage(AppiumDriver<WebElement> driver) {
+    public SavedPage(AppiumDriver driver) {
         super(driver);
     }
 

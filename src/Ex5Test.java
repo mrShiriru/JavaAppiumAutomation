@@ -1,8 +1,6 @@
 import lib.CoreTestCase;
-import lib.ui.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -35,12 +33,12 @@ public class Ex5Test extends CoreTestCase {
         List<WebElement> items = groupPage.getArticlesList();
         groupPage.deleteArticle(FIRST_ARTICLE);
         List<WebElement> items2 =  groupPage.getArticlesList();
-        Assert.assertTrue("The first article hasn't been removed",items.size() > items2.size());
+        Assertions.assertTrue(items.size() > items2.size(), "The first article hasn't been removed");
 
         String expectedTitle = groupPage.saveTitleAndOpenArticle(FIRST_ARTICLE);
 
         String actualTitle = articlePage.getTitle();
-        Assert.assertEquals(ERROR_MESSAGE,expectedTitle,actualTitle);
+        Assertions.assertEquals(ERROR_MESSAGE,expectedTitle,actualTitle);
     }
 
     private void saveCurrentArticle(int articleNumber){

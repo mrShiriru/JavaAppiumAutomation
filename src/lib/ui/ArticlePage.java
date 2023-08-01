@@ -22,7 +22,7 @@ public class ArticlePage extends AnyPage {
             "/preceding-sibling::android.view.View");
     private static final String TITLE_TPL =  "//android.webkit.WebView[contains(@content-desc,'{TITLE}')]";
 
-    public ArticlePage(AppiumDriver<WebElement> driver) {
+    public ArticlePage(AppiumDriver driver) {
         super(driver);
         topPanel = new TopPanel(driver);
         bottomPanel = new BottomPanel(driver);

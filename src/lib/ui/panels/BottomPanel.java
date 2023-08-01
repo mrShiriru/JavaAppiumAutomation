@@ -9,7 +9,7 @@ import static lib.CoreTestCase.SHORT_WAIT_TIME;
 
 public class BottomPanel extends AnyPage {
 
-    public BottomPanel(AppiumDriver<WebElement> driver) {
+    public BottomPanel(AppiumDriver driver) {
         super(driver);
     }
 

@@ -1,5 +1,5 @@
 import lib.CoreTestCase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class Ex9Test extends CoreTestCase {
 

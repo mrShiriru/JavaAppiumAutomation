@@ -1,8 +1,6 @@
 import lib.CoreTestCase;
-import lib.ui.MainPage;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -33,7 +31,7 @@ public class Ex2Test extends CoreTestCase {
         WebElement element = mainPage.waitElementPresent(locator,ERROR_MESSAGE,DEFAULT_WAIT_TIME);
         String actualText = element.getAttribute("text");
 
-        Assert.assertEquals(errorMessage, expectedText, actualText);
+        Assertions.assertEquals(errorMessage, expectedText, actualText);
     }
 
 }

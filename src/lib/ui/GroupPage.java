@@ -16,7 +16,7 @@ public class GroupPage extends AnyPage implements Article {
             "//android.widget.TextView[@resource-id='org.wikipedia:id/page_list_item_title']"),
             POPUP_INFO = By.id("org.wikipedia:id/snackbar_text");
 
-    public GroupPage(AppiumDriver<WebElement> driver) {
+    public GroupPage(AppiumDriver driver) {
         super(driver);
     }
 
