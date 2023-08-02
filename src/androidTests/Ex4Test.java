@@ -1,3 +1,5 @@
+package androidTests;
+
 import lib.CoreTestCase;
 import org.junit.jupiter.api.Test;
 

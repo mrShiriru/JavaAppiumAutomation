@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
+import static lib.CoreTestCase.SHORT_WAIT_TIME;
+
 public abstract class AnyPage {
     protected AppiumDriver driver;
 
@@ -19,15 +21,19 @@ public abstract class AnyPage {
         this.driver= driver;
     }
 
-    public void skipOnboarding(){
-        new MainPage(driver).skipOnboarding();
-    }
 
     public WebElement waitElementPresent(By locator, String errorMsg, long timeoutInSeconds){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
-        wait.withMessage(errorMsg + "\n");
-        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        return new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
+                .withMessage(errorMsg + "\n")
+                .until(ExpectedConditions.presenceOfElementLocated(locator));
     }
+
+    protected WebElement waitElementVisibility(By locator, String errorMessage) {
+        return new WebDriverWait(driver, Duration.ofSeconds(SHORT_WAIT_TIME))
+                .withMessage(errorMessage)
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
 
     public List<WebElement> waitElementsPresent(By locator, String errorMsg, long timeoutInSeconds){
         return new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
@@ -36,9 +42,9 @@ public abstract class AnyPage {
     }
 
     public void waitElementNotPresent(By locator, String errorMsg, long timeoutInSeconds){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
-        wait.withMessage(errorMsg + "\n");
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+        new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
+                .withMessage(errorMsg + "\n")
+                .until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
     public void waitElementsNotPresent(List<WebElement> elements, String errorMsg, long timeoutInSeconds){
@@ -57,7 +63,7 @@ public abstract class AnyPage {
         element.sendKeys(value);
     }
 
-    public List<WebElement> getElements(By locator) {
+    public List<WebElement> findElements(By locator) {
         return driver.findElements(locator);
     }
 

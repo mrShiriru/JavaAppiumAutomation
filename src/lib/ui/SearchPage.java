@@ -17,15 +17,14 @@ public class SearchPage  extends AnyPage implements Article {
     TopPanel topPanel;
 
     private static final By
-            SEARCH_INPUT_ELEMENT = By.xpath("//*[contains(@text,'Search Wikipedia')]"),
+            SEARCH_INPUT_ELEMENT = By.xpath("//*[contains(@name,'Search Wikipedia')]"),
             SEARCH_CLOSE_BUTTON = By.id("org.wikipedia:id/search_close_btn"),
             ARTICLES_IN_SEARCH_LIST = By.xpath(
                     "//*[@resource-id='org.wikipedia:id/search_results_list']//android.view.ViewGroup"),
             PAGE_LIST_ITEM_TITLE = By.xpath(".//*[@resource-id='org.wikipedia:id/page_list_item_title']");
 
     public static final String
-            SEARCH_RESULT_BY_SUBSTRING_TPL = "*[@resource-id='org.wikipedia:id/page_list_item_description' and " +
-                "contains(@text,'{DESCRIPTION}')]",
+            SEARCH_RESULT_BY_SUBSTRING_TPL = "XCUIElementTypeStaticText[contains(@name,'{DESCRIPTION}')]",
             SEARCH_BY_TITLE_AND_DESCRIPTION_TPL = "//*[@resource-id ='org.wikipedia:id/search_results_list']" +
                     "//*[@resource-id='org.wikipedia:id/page_list_item_title' and @text='{TITLE}']/following-sibling::" +
                     SEARCH_RESULT_BY_SUBSTRING_TPL;
@@ -96,13 +95,13 @@ public class SearchPage  extends AnyPage implements Article {
 
     public void waitForArticlesToDisappear(){
         waitElementsNotPresent(
-                getElements(ARTICLES_IN_SEARCH_LIST),
+                findElements(ARTICLES_IN_SEARCH_LIST),
                 "Articles are still present in search list",
                 SHORT_WAIT_TIME);
     }
 
     public void checkTextInEachSearchResult(String text){
-        List<WebElement> articles =  getElements(ARTICLES_IN_SEARCH_LIST);
+        List<WebElement> articles =  findElements(ARTICLES_IN_SEARCH_LIST);
 
         for (WebElement article : articles){
             String actualTitle = getTitle(article);

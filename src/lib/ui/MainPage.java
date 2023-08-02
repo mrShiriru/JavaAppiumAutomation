@@ -15,9 +15,10 @@ public class MainPage extends AnyPage {
 
     BottomPanel bottomPanel;
 
-    private static final By SKIP_BUTTON = By.id("org.wikipedia:id/fragment_onboarding_skip_button");
-
-    private final String FREE_ENC_ID = "The free encyclopedia";
+    private final By
+            NEXT_BUTTON = By.xpath("//XCUIElementTypeStaticText[@name='Next']"),
+            SKIP_BUTTON = By.xpath("//XCUIElementTypeButton[@name='Skip']"),
+            FREE_ENC = By.id("The free encyclopedia");
 
     public MainPage(AppiumDriver driver) {
         super(driver);
@@ -30,34 +31,23 @@ public class MainPage extends AnyPage {
 
 
     public void waitForFreeEncyclopedia(){
-        this.waitForElementVisibility("id:" + FREE_ENC_ID, "cannot find element");
+        waitElementVisibility(FREE_ENC,"cannot find element 'The free encyclopedia'");
     }
 
-    protected WebElement waitForElementVisibility(String locator, String errorMessage) {
-        By by = getLocatorByString(locator);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.withMessage(errorMessage);
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-    }
-
-    private By getLocatorByString(String locatorWithBy){
-        String[] parts = locatorWithBy.split(":");
-        String by = parts[0];
-        String locator = parts[1];
-        switch (by){
-            case "xpath":
-                return By.xpath(locator);
-            case "id":
-                return By.id(locator);
-            default:
-                throw new IllegalArgumentException("by not found " + by);
-        }
+    public void clickNextButton(){
+        waitAndClick(NEXT_BUTTON, "Cannot click Next button on page", SHORT_WAIT_TIME);
     }
 
     public void skipOnboarding(){
+        waitForFreeEncyclopedia();
         waitAndClick(
                 SKIP_BUTTON,
                 "Cannot click Skip button",
                 SHORT_WAIT_TIME);
+    }
+
+    public void agreeOnboarding(){
+        waitForFreeEncyclopedia();
+        clickNextButton();
     }
 }

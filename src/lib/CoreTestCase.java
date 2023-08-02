@@ -37,6 +37,7 @@ public class CoreTestCase {
         iosCaps.setCapability("app", "/Users/user/Desktop/pr/JavaAppiumAutomation/apks/Wikipedia.app");
         driver =  new IOSDriver(new URL(url), iosCaps);
         loadingPage();
+        mainPage.skipOnboarding();
     }
 
     private void loadingPage(){
